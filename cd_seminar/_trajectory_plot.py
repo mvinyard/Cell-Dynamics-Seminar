@@ -7,11 +7,12 @@ import vinplots
 
 from ._transformers import Transformers
 
-transform = Transformers()
 
 class TrajectoryPlot:
     def __init__(self, adata, X_pred: np.array):
-
+        
+        transform = Transformers()
+        
         """
         X_pred
             type: np.ndarray
