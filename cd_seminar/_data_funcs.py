@@ -65,14 +65,17 @@ def downsampled_hematopoiesis(h5ad_path=None, downsample=1, plot=True, quiet=Fal
         "Time point": {2.0: "#3f88c5", 4.0: "#ffba08", 6.0: "#d00000"},
         "Cell type annotation": vinplots.colors.LARRY_in_vitro,
     }
+    
+    umap_model, X_umap = _quick_umap(adata)
+    
+    adata.obsm['X_umap'] = X_umap
+    adata.uns['umap'] = umap_model
+    
     if not quiet:
         print("\n{}".format(adata))
         if plot:
             overview_plot(adata, groupby=list(adata.uns["cmaps"].keys()))
             
-    umap_model, X_umap = _quick_umap(adata)
     
-    adata.obsm['X_umap']
-    adata.uns['umap'] = umap_model
         
     return adata
