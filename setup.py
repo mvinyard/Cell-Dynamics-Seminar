@@ -25,6 +25,7 @@ setuptools.setup(
         "nb_black",
         "torch>=1.12",
         "cellrank>=1.5.1",
+        "pickle5",
     ],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
