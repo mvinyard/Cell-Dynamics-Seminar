@@ -11,12 +11,21 @@ from ._plot_umaps import overview_plot
 
 PathDict = {
     "h5ad": "./content/adata.h5ad",
-    "umap": "./content/umap.pkl",
-    "pca":  "./content/pca.pkl",
+#     "umap": "./content/umap.pkl",
+#     "pca":  "./content/pca.pkl",
     "ckpt": "./content/ckpt.pt",
 }
 
 
+import umap
+
+def _quick_umap(adata):
+
+    umap_model = umap.UMAP(n_neighbors=20)
+    X_pca = adata.obsm['X_pca']
+    X_umap = umap_model.fit_transform(X_pca)
+
+    return umap_model, X_umap
 
 # -- download tutorial content: ----------------------------------------------------------
 def download_tutorial_content(data_dir="./content"):
@@ -27,8 +36,8 @@ def download_tutorial_content(data_dir="./content"):
         
     figshare_files = {
         "adata.h5ad": 38171943,
-        "umap.pkl": 38171808,
-        "pca.pkl": 38171646,
+#         "umap.pkl": 38171808,
+#         "pca.pkl": 38171646,
         "ckpt.pt" : 38171649,
     }
 
@@ -60,5 +69,10 @@ def downsampled_hematopoiesis(h5ad_path=None, downsample=1, plot=True, quiet=Fal
         print("\n{}".format(adata))
         if plot:
             overview_plot(adata, groupby=list(adata.uns["cmaps"].keys()))
+            
+    umap_model, X_umap = _quick_umap(adata)
+    
+    adata.obsm['X_umap']
+    adata.uns['umap'] = umap_model
         
     return adata
