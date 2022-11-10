@@ -27,9 +27,9 @@ def download_tutorial_content(data_dir="./content"):
 
     figshare_files = {
         "adata.h5ad": 38171943,
-        "umap.pkl": 38171808,
-        "pca.pkl": 38171646,
-        "ckpt.pt": 38171649,
+        "umap.pkl": 38175252,  # modified to protocol=4
+        "pca.pkl" : 38175255,  # modified to protocol=4
+        "ckpt.pt" : 38171649,
     }
 
     for filename, http_key in figshare_files.items():
