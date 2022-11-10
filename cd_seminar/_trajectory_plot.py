@@ -5,25 +5,27 @@ import matplotlib.pyplot as plt
 import vinplots
 
 
-from ._transformers import Transformers
+# from ._transformers import Transformers
 
 
 class TrajectoryPlot:
     def __init__(self, adata, X_pred: np.array):
         
-        transform = Transformers()
+#         transform = Transformers()
         
         """
         X_pred
             type: np.ndarray
             shape:(n_steps x n_cells x n_dim)
         """
+        
+        umap_model = adata.uns['umap']
 
         self._X_umap = adata.obsm["X_umap"]
         X_pred_ = []
         for i in tqdm(range(X_pred.shape[1])):
             print("UMAP: ({} / {})".format(i + 1, X_pred.shape[1]), end="\r")
-            X_pred_.append(transform.umap.transform(X_pred[:, i, :]))
+            X_pred_.append(umap_model.transform(X_pred[:, i, :]))
 
         self._X_pred = np.array(X_pred_)
 
